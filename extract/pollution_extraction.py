@@ -1,9 +1,5 @@
 from utils.utils import collect_and_save_data
 
-
-
-
-
 def los_angeles_pollution():
     return collect_and_save_data("34.052235", "-118.243683","Los Angeles")
 
@@ -22,14 +18,3 @@ def nairobi_pollution():
 
 def lima_pollution():
     return collect_and_save_data("-12.046373", "-77.042755","Lima")
-
-
-
-
-
-
-
-
-
-
-
