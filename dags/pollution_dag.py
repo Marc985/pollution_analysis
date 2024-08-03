@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
-from utils.utils import collect_and_save_data
+from airflow.operators.python import PythonOperator
 from extract.pollution_extraction import los_angeles_pollution, tokyo_pollution, anatananarivo_pollution, nairobi_pollution, lima_pollution
 from transform.transform import clean_and_transform_data
 
@@ -12,6 +11,7 @@ default_args = {
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
+
 
 dag = DAG(
     'pollution_data_etl',
@@ -56,4 +56,4 @@ transform_task = PythonOperator(
     dag=dag,
 )
 
-los_angeles_task >> tokyo_task >> anatananarivo_task >> nairobi_task >> lima_task >> transform_task
+[los_angeles_task ,tokyo_task, anatananarivo_task, nairobi_task , lima_task] >> transform_task

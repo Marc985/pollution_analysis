@@ -3,20 +3,28 @@ import os
 from dotenv import load_dotenv
 import pandas as pd
 
-
-def collect_and_save_data(lat, lon,location):
+def collect_and_save_data(lat, lon, location):
     load_dotenv()
     app_id = os.getenv("APP_ID")
     base_params = {
         "lat": lat,
         "lon": lon,
         "appid": app_id
-
     }
-    reponse = requests.get("http://api.openweathermap.org/data/2.5/air_pollution", params=base_params)
-    updatedResponse=combine_aqi_and_components_from_api(reponse.json(),location)
+    response = requests.get("http://api.openweathermap.org/data/2.5/air_pollution", params=base_params)
+
+    # Vérifier le code de statut HTTP
+    if response.status_code != 200:
+        print(f"Erreur lors de l'appel à l'API: {response.status_code}")
+        response.raise_for_status()
+
+    response_data = response.json()
+    print("Réponse de l'API:", response_data)
+
+    updatedResponse = combine_aqi_and_components_from_api(response_data, location)
     append_data_to_csv(updatedResponse)
     return updatedResponse
+
 
 
 def combine_aqi_and_components_from_api(data, location):

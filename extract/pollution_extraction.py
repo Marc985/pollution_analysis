@@ -18,3 +18,4 @@ def nairobi_pollution():
 
 def lima_pollution():
     return collect_and_save_data("-12.046373", "-77.042755","Lima")
+
