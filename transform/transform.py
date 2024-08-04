@@ -17,22 +17,22 @@ def clean_and_transform_data(input_filename='pollution_data.csv', output_filenam
 
     df['date'] = pd.to_datetime('today').normalize()
 
-    df['pm2_5_level'] = pd.cut(df['pm2_5'], bins=[0, 12, 35, 55, np.inf], labels=['Good', 'Moderate', 'Unhealthy', 'Very Unhealthy'])
-    df['pm10_level'] = pd.cut(df['pm10'], bins=[0, 50, 150, 250, np.inf], labels=['Good', 'Moderate', 'Unhealthy', 'Very Unhealthy'])
-
     def get_pollution_level(aqi):
-        if aqi <= 50:
+        if aqi == 1:
             return 'Good'
-        elif aqi <= 100:
+        elif aqi == 2:
+            return 'Fair'
+        elif aqi == 3:
             return 'Moderate'
-        elif aqi <= 150:
-            return 'Unhealthy'
-        else:
-            return 'Very Unhealthy'
+        elif aqi == 4:
+            return 'Poor'
+        elif aqi == 5:
+            return 'Very Poor'
 
     df['pollution_level'] = df['aqi'].apply(get_pollution_level)
 
     df.to_csv(output_filename, index=False)
     return df
+
 
 

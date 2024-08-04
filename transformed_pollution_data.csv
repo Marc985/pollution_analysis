@@ -1,0 +1,5 @@
+aqi,co,no,no2,o3,so2,pm2_5,pm10,nh3,location,date,pm2_5_level,pm10_level,pollution_level
+3,580.79,11.18,73.34,1.48,9.42,17.33,28.94,2.41,Los Angeles,2024-08-04,Moderate,Good,Good
+3,580.79,11.18,73.34,1.48,9.42,17.33,28.94,2.41,Los Angeles,2024-08-04,Moderate,Good,Good
+1,400.54,0.09,1.44,58.65,2.12,5.71,12.9,6.78,Antananarivo,2024-08-04,Good,Good,Good
+1,400.54,0.09,1.44,58.65,2.12,5.71,12.9,6.78,Antananarivo,2024-08-04,Good,Good,Good
