@@ -35,4 +35,3 @@ def clean_and_transform_data(input_filename='pollution_data.csv', output_filenam
     return df
 
 
-
