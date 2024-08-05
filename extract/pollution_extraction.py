@@ -8,7 +8,7 @@ def tokyo_pollution():
     return collect_and_save_data("35.682839", "139.759455","Tokyo")
 
 
-def anatananarivo_pollution():
+def antananarivo_pollution():
     return collect_and_save_data("-18.918869188079366", "47.5192845707442","Antananarivo")
 
 

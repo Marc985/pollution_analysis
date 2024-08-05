@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from extract.pollution_extraction import los_angeles_pollution, tokyo_pollution, anatananarivo_pollution, nairobi_pollution, lima_pollution
+from extract.pollution_extraction import los_angeles_pollution, tokyo_pollution, antananarivo_pollution, nairobi_pollution, lima_pollution
 from transform.transform import clean_and_transform_data
 
 default_args = {
@@ -32,9 +32,9 @@ tokyo_task = PythonOperator(
     dag=dag,
 )
 
-anatananarivo_task = PythonOperator(
-    task_id='anatananarivo_pollution',
-    python_callable=anatananarivo_pollution,
+antananarivo_task = PythonOperator(
+    task_id='antananarivo_pollution',
+    python_callable=antananarivo_pollution,
     dag=dag,
 )
 
@@ -56,4 +56,4 @@ transform_task = PythonOperator(
     dag=dag,
 )
 
-[los_angeles_task ,tokyo_task, anatananarivo_task, nairobi_task , lima_task] >> transform_task
+[los_angeles_task ,tokyo_task, antananarivo_task, nairobi_task , lima_task] >> transform_task
