@@ -30,8 +30,9 @@ def collect_and_save_data(lat, lon, location):
 def combine_aqi_and_components_from_api(data, location):
     aqi = data["list"][0]["main"]
     components = data["list"][0]["components"]
-    combined_data = {**aqi, **components}
+    combined_data = {**aqi, **components,}
     combined_data["location"] =location 
+    combined_data["date"] = data["list"][0]["dt"]
     return combined_data
 
 

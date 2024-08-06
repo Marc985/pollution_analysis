@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import datetime
 
 def clean_and_transform_data(input_filename='pollution_data.csv', output_filename='transformed_pollution_data.csv'):
     df = pd.read_csv(input_filename)
@@ -15,7 +15,8 @@ def clean_and_transform_data(input_filename='pollution_data.csv', output_filenam
         'co': -1
     }, inplace=True)
 
-    df['date'] = pd.to_datetime('today').normalize()
+    # Convertir la colonne 'date' des timestamps Unix en dates formatées
+    df['date'] = pd.to_datetime(df['date'], unit='s',utc=True).dt.strftime('%Y-%m-%d')
 
     def get_pollution_level(aqi):
         if aqi == 1:
@@ -34,4 +35,6 @@ def clean_and_transform_data(input_filename='pollution_data.csv', output_filenam
     df.to_csv(output_filename, index=False)
     return df
 
+
+clean_and_transform_data()
 
