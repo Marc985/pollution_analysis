@@ -22,5 +22,3 @@ def lima_pollution():
 
 
 
-los_angeles_pollution()
-antananarivo_pollution()

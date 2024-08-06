@@ -59,7 +59,6 @@ def create_star_modal():
     fact_pollution.to_csv('data/processed/fact_pollution.csv',index=False)
     pass
 
-clean_and_transform_data()
    
 
 
