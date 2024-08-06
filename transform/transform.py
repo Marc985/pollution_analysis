@@ -15,7 +15,6 @@ def clean_and_transform_data(input_filename='pollution_data.csv', output_filenam
         'co': -1
     }, inplace=True)
 
-    # Convertir la colonne 'date' des timestamps Unix en dates formatées
     df['date'] = pd.to_datetime(df['date'], unit='s',utc=True).dt.strftime('%Y-%m-%d')
 
     def get_pollution_level(aqi):
@@ -36,5 +35,4 @@ def clean_and_transform_data(input_filename='pollution_data.csv', output_filenam
     return df
 
 
-clean_and_transform_data()
 
