@@ -36,11 +36,11 @@ def combine_aqi_and_components_from_api(data, location):
     return combined_data
 
 
-def append_data_to_csv(data, filename='pollution_data.csv'):
+def append_data_to_csv(data, file='data/raw/pollution_data.csv'):
     df=pd.DataFrame([data])
-    if os.path.exists(filename):
-        existing_df = pd.read_csv(filename)
+    if os.path.exists(file):
+        existing_df = pd.read_csv(file)
         updated_df=pd.concat([existing_df,df],ignore_index=True)
     else:
         updated_df=df
-    updated_df.to_csv(filename,index=False)
+    updated_df.to_csv(file,index=False)

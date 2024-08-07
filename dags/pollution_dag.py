@@ -3,6 +3,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from extract.pollution_extraction import los_angeles_pollution, tokyo_pollution, antananarivo_pollution, nairobi_pollution, lima_pollution
 from transform.transform import clean_and_transform_data
+from load.load_data import load_data_to_database
 
 default_args = {
     'owner': 'airflow',
@@ -55,5 +56,10 @@ transform_task = PythonOperator(
     python_callable=clean_and_transform_data,
     dag=dag,
 )
+load_task=PythonOperator(
+    task_id='load_data',
+    python_callable=load_data_to_database,
+    dag=dag,
+)
 
-[los_angeles_task ,tokyo_task, antananarivo_task, nairobi_task , lima_task] >> transform_task
+[los_angeles_task ,tokyo_task, antananarivo_task, nairobi_task , lima_task] >> transform_task >> load_task
