@@ -19,6 +19,8 @@ def clean_and_transform_data(input_filename='data/raw/pollution_data.csv', outpu
 
     df['date'] = pd.to_datetime(df['date'], unit='s',utc=True).dt.strftime('%Y-%m-%d')
 
+    df.drop_duplicates(inplace=True)
+
     def get_pollution_level(aqi):
         if aqi == 1:
             return 'Good'
@@ -59,7 +61,8 @@ def create_star_modal():
     fact_pollution.to_csv('data/processed/fact_pollution.csv',index=False)
     pass
 
-   
+
+
 
 
 
