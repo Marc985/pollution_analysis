@@ -11,8 +11,6 @@ Ces lignes définissent les variables indépendantes (X) et la variable dépenda
 
 => X est un DataFrame contenant les colonnes sélectionnées comme variables indépendantes du modèle. Ces variables sont censées influencer l'Air Quality Index (AQI).
 
-NB: méthode des moindres carrés ordinaires (Ordinary Least Squares - OLS)
-
 
 Le graphique est utile pour visualiser la qualité de la régression linéaire. Une bonne correspondance entre les valeurs prédites et les valeurs réelles se manifesterait par des points proches de la ligne rouge, indiquant que le modèle est efficace pour prédire l'AQI en fonction des variables indépendantes sélectionnées.
 
@@ -75,22 +73,22 @@ R-squared (R-carré): 0.638. Indique que 63.8% de la variance de l'AQI est expli
 
 Pour chaque variable indépendante :
 
-- coef: Le coefficient de régression. Indique l'impact de la variable sur l'AQI.
-- std err (standard error): Erreur standard du coefficient. Une mesure de la variabilité du coefficient.
-- t: Valeur t pour tester l'hypothèse nulle (le coefficient est égal à zéro).
-- P>|t|: Valeur p associée à la valeur t. Indique la probabilité que le coefficient soit égal à zéro. Une valeur inférieure à 0.05 est généralement considérée comme statistiquement significative.
-- [0.025, 0.975]: Intervalle de confiance à 95% pour le coefficient.
+- **coef**: Le coefficient de régression. Indique l'impact de la variable sur l'AQI.
+- **std err (standard error)**: Erreur standard du coefficient. Une mesure de la variabilité du coefficient.
+- **t**: Valeur t pour tester l'hypothèse nulle (le coefficient est égal à zéro).
+- **P>|t|**: Valeur p associée à la valeur t. Indique la probabilité que le coefficient soit égal à zéro. Une valeur inférieure à 0.05 est généralement considérée comme statistiquement significative.
+- **[0.025, 0.975]**: Intervalle de confiance à 95% pour le coefficient.
 
 Explication:
 
-- const (interception): -6.581e-06, pas statistiquement significatif (P>|t| = 0.975).
-- Population: -2.031e-07, tendance négative mais pas statistiquement significatif (P>|t| = 0.078).
-- Density (people/km²): 9.101e-05, pas statistiquement significatif (P>|t| = 0.621).
-- Urbanization (%): -0.0007, pas statistiquement significatif (P>|t| = 0.973).
-- Average Income (USD): 7.781e-05, proche de la significativité (P>|t| = 0.061).
-- Education Level (% with Bachelor's or higher): -9.538e-05, pas statistiquement significatif (P>|t| = 0.972).
-- Altitude (m): 0.0015, pas statistiquement significatif (P>|t| = 0.147).
-- Proximity to Industry (km): 2.897e-05, pas statistiquement significatif (P>|t| = 0.967).
+- **const (interception)**: -6.581e-06, pas statistiquement significatif (P>|t| = 0.975).
+- **Population**: -2.031e-07, tendance négative mais pas statistiquement significatif (P>|t| = 0.078).
+- **Density (people/km²):** 9.101e-05, pas statistiquement significatif (P>|t| = 0.621).
+- **Urbanization (%)**: -0.0007, pas statistiquement significatif (P>|t| = 0.973).
+- **Average Income (USD)**: 7.781e-05, proche de la significativité (P>|t| = 0.061).
+- **Education Level (% with Bachelor's or higher)**: -9.538e-05, pas statistiquement significatif (P>|t| = 0.972).
+- **Altitude (m)**: 0.0015, pas statistiquement significatif (P>|t| = 0.147).
+- **Proximity to Industry (km)**: 2.897e-05, pas statistiquement significatif (P>|t| = 0.967).
 
 ### Statistiques de diagnostic
 
