@@ -1,5 +1,108 @@
 # Analyse de pollution
 
+## ETL 
+
+### Introduction
+
+Ce projet consiste à construire une pipeline ETL pour collecter, transformer, et charger des données de pollution de l'air (Air Quality Index, AQI) provenant de l'API OpenWeatherMap. Les données couvrent plusieurs villes et sont stockées dans une base de données pour une analyse ultérieure.
+
+### Étapes de la Pipeline ETL
+
+#### 1. Extraction des Données
+
+La fonction `collect_and_save_data(lat, lon, location)` récupère les données de pollution de l'air pour une position géographique donnée. Les données sont combinées avec les composants de la qualité de l'air et enregistrées dans un fichier CSV.
+
+[![extract](utils/screenshoot/collect_and_save_data_code.png)](utils/screenshoot/collect_and_save_data_code.png)
+
+- **Entrées** :
+  - Latitude et longitude de la ville
+  - Nom de la ville
+  
+- **Sortie** :
+  - Dictionnaire combinant l'AQI et les composants de pollution, ajouté au fichier CSV `data/raw/pollution_data.csv`
+
+[![extract](utils/screenshoot/collect_and_save_data.png)](utils/screenshoot/collect_and_save_data.png)
+
+### 2. Transformation des Données
+
+La fonction `clean_and_transform_data()` effectue les opérations suivantes :
+- Remplissage des valeurs manquantes
+- Conversion du timestamp en format date
+- Suppression des doublons
+- Ajout d'une colonne `pollution_level` basée sur l'AQI
+
+- **Entrée** :
+  - Fichier CSV brut `data/raw/pollution_data.csv`
+  
+- **Sortie** :
+  - Fichier CSV transformé `data/processed/transformed_pollution_data.csv`
+
+[![transform](utils/screenshoot/clean_and_transform_data.png)](utils/screenshoot/clean_and_transform_data.png)
+
+### 3. Modélisation en Étoile
+
+La fonction `create_star_modal()` crée deux tables :
+- `location_dim` : Contient les dimensions géographiques et démographiques des lieux
+- `fact_pollution` : Table de faits combinant les données de pollution et les dimensions géographiques
+
+[![modal](utils/screenshoot/create_star_modal.png)](utils/screenshoot/create_star_modal.png)
+
+- **Entrée** :
+  - Fichier transformé `data/processed/transformed_pollution_data.csv`
+  - Données géographiques et démographiques
+  
+- **Sortie** :
+  - Deux fichiers CSV : `data/processed/location_dim.csv` et `data/processed/fact_pollution.csv`
+
+### 4. Chargement dans la Base de Données
+
+La fonction `load_data_to_database()` charge les tables `location_dim` et `fact_pollution` dans une base de données SQL via SQLAlchemy.
+
+- **Entrées** :
+  - Fichiers CSV `data/processed/location_dim.csv` et `data/processed/fact_pollution.csv`
+  
+- **Sortie** :
+  - Tables persistées dans la base de données
+
+[![load](utils/screenshoot/load_data_to_db.png)](utils/screenshoot/load_data_to_db.png)
+
+### 5. Orchestration avec Airflow
+
+Le DAG `pollution_data_etl` dans Airflow orchestre les tâches d'extraction, de transformation et de chargement.
+
+[![dag](utils/screenshoot/dag_pollution_data_etl.png)](utils/screenshoot/dag_pollution_data_etl.png)
+
+#### Description des Tâches dans le DAG :
+
+- **Tâches d'extraction** :
+  - `los_angeles_pollution`
+  - `tokyo_pollution`
+  - `antananarivo_pollution`
+  - `nairobi_pollution`
+  - `lima_pollution`
+  
+  Ces tâches extraient les données de pollution pour chaque ville.
+
+[![extracts](utils/screenshoot/location_dag.png)](utils/screenshoot/location_dag.png)
+
+- **Tâche de transformation** :
+  - `transform_data` : Transforme les données brutes en un format exploitable.
+
+[![extracts](utils/screenshoot/transform_task.png)](utils/screenshoot/transform_task.png)
+
+- **Tâche de chargement** :
+  - `load_data` : Charge les données dans la base de données.
+
+[![extracts](utils/screenshoot/load_task.png)](utils/screenshoot/load_task.png)
+
+Les tâches d'extraction sont exécutées en parallèle, puis la transformation et le chargement se font séquentiellement.
+
+
+
+[![etl](utils/screenshoot/ETL.png)](utils/screenshoot/ETL.png)
+
+---
+
 ## Analyse de donnée avec la regression linéaire et analyse de corrélation:
 
 - Définition des variables et ajustement du modèle de régression linéaire:
